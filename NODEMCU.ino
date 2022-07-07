@@ -20,17 +20,17 @@ String tempString, UVString, PM25String, humidityString, pressureString;
 //config variables----------------------------------------------------------
 
 //these are the config variables for the wifi connection
-const char* ssid = "Tenda_DIEGOX";
-const char* password = "dieguitusN1";
+const char* ssid = "YOUR WIFI AP";
+const char* password = "YOUR WIFI PASSWORD";
 
 //these are the config variables for the mqtt connection
-const char* mqtt_server = "192.168.1.142";
-const char* client_id = "Sensor_1";
-const char* password_mqtt = "rSBsyGswREbf";
+const char* mqtt_server = "diegox.ddns.net";
+const char* client_id = "ID SENDED VIA EMAIL";
+const char* password_mqtt = "PASSWORD SENDED VIA EMAIL";
 
 //these are the lat and long for the location of the sensor
-const char* lat = "39.469846";
-const char* lon = "-6.380116";
+const char* lat = "XX.XXX";
+const char* lon = "XX.XXX";
 
 //ending of config variables -------------------------------------------------
 
