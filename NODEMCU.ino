@@ -58,7 +58,6 @@ void loop() {
   if (!client.connected()) {
     reconnect();
   }
-  client.loop();
 
   long now = millis();
   if (now - lastMsg > 60000) {
@@ -91,8 +90,10 @@ void loop() {
       strcat(msg, PM25String.c_str());
       Serial.println(msg);
       client.publish("esp32/sensors", msg);
-    
+      //client.disconnect();
   }
+   client.loop();
+  
 }
 
 void BMEInit() {
@@ -194,12 +195,18 @@ void setup_Wifi() {
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
+  int WIFI_COUNTER = 0;
 
   WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED) {
+    
     delay(500);
     Serial.print(".");
+    WIFI_COUNTER++;
+    if(WIFI_COUNTER>10){
+      ESP.restart();
+    }
   }
 
   Serial.println("");
@@ -210,7 +217,9 @@ void setup_Wifi() {
 
 void reconnect() {
   // Loop until we're reconnected
+  int MQTT_COUNTER = 0;
   while (!client.connected()) {
+    MQTT_COUNTER++;
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
     if (client.connect("ESP8266Client")) {
@@ -223,6 +232,9 @@ void reconnect() {
       Serial.println(" try again in 5 seconds");
       // Wait 5 seconds before retrying
       delay(5000);
+    }
+    if(MQTT_COUNTER > 10){
+      ESP.restart();
     }
   }
 }
